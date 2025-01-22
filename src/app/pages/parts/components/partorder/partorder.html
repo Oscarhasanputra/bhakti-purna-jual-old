@@ -1,0 +1,102 @@
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <div class="col-md-10">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Nomor Part Order :</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <list-po (POdataOutput)="loadFromPOcomponent($event)" (NoPOkeypress)="POcomponentKeypress($event)" [(POdataInput)] = "dataHeader" [(componentDisablePO)] = "disablePOcomponent"></list-po>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Tanggal : </label>
+                        <label class="col-sm-5">
+                            {{dataHeader.dateTrx | date: 'dd-MMM-yyyy HH:mm'}}
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Kode Bass : </label>
+                        <label class="col-sm-5">
+                            <b><span> {{dataHeader.KodeBass}} </span></b> - <span>{{dataHeader.NamaBass}}</span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Tipe PO : </label>
+                        <div class="col-sm-5">
+                            <select [disabled]="disableHeaderComp" class="form-control" id="TipePOSelect" [(ngModel)]="dataHeader.selectedTipePO" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let tipePO of tipePOs" [value]="tipePO.KODE_TIPE_PO">  
+                                    {{tipePO.DESCRIPTION}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Nomor Service :</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <list-service (ServiceDataOutput)="loadFromServiceComponent($event)" (NoServicekeypress)="ServicecomponentKeypress($event)" [(ServiceDataInput)] = "dataHeader" [(componentDisableService)] = "disableServicecomponent"></list-service>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Catatan :</label>
+                        <div class="col-sm-5">
+                            <textarea [disabled]="disableHeaderComp" class="form-control" rows="3" [(ngModel)]="dataHeader.catatan" [ngModelOptions]="{standalone: true}"
+                                placeholder="Catatan"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Kode Sparepart :</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <list-sparepart (SparepartdataOutput)="loadFromPartComponent($event)" [(componentDisableSparepart)] = "disableSparepartcomponent"></list-sparepart>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <list-barang (BarangdataOutput)="loadFromPartComponent($event)" [(componentDisableBarang)] = "disableBarangcomponent"></list-barang>                   
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <button type="button" class="btn btn-danger" (click)="removeSelected()" [disabled]="disableRemovebtn">Remove selected</button>
+                    </div>
+                </form>
+            </div>
+
+            <br />
+            <br />
+
+            <p-dataTable [value]="sparepartList" [(selection)]="selectedPart" [responsive]="true" [stacked]="stacked" sortMode="multiple"
+                [editable]="!disableRemovebtn" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+                [style]="{'color': 'black'}">
+                <p-column [style]="{'width':'30px'}" selectionMode="multiple"></p-column>
+                <p-column field="Part_ID" header="Kode Sparepart" [style]="{'width':'150px'}"></p-column>
+                <p-column field="Part_Name" header="Nama Sparepart" [style]="{'width':'150px'}"></p-column>
+                <p-column field="QUANTITY" header="Quantity" [style]="{'width':'50px', 'background-color':'blue', 'color':'white'}" [editable]="!disableRemovebtn"></p-column>
+                <p-column field="STOCK_CABANG" header="Stock Cabang" [style]="{'width':'50px'}"></p-column>
+                <p-column field="STOCK_PUSAT" header="Stock Pusat" [style]="{'width':'50px'}"></p-column>
+                <p-column field="Harga" header="Harga" [style]="{'width':'100px'}"></p-column>
+                <p-column styleClass="col-button" [style]="{'width':'30px'}">
+                    <template let-part="rowData" pTemplate="body">
+                        <button type="button" class="btn btn-danger" pButton (click)="remove(part)" icon="fa-times" [disabled]="disableRemovebtn"></button>
+                    </template>
+                </p-column>
+            </p-dataTable>
+
+            <br />
+            <br />
+
+            <button type="button" class="btn btn-primary" (click)="save()" [disabled]="disableSavebtn">Save</button> &nbsp;
+            &nbsp; &nbsp;
+            <button type="button" class="btn btn-default" (click)="new()" [hidden]="hiddenNewbtn">New</button>
+            <button type="button" class="btn btn-default" (click)="back()" [hidden]="hiddenBackbtn">Back</button>
+        </ba-card>
+    </div>
+</div>

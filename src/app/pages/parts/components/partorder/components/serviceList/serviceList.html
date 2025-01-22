@@ -1,0 +1,61 @@
+<!--<div class="widgets">
+  <div class="row">    
+      <ba-card title="" baCardClass="with-scroll">
+        <p-dataTable [value]="serviceList" [rows]="20" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
+            selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)">
+            <p-column field="KODE_SERVICE" header="KODE SERVICE" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column> 
+
+            <p-column field="TANGGAL" header="TANGGAL" [sortable]="true" [filter]="true" filterPlaceholder="Search">      
+              <template let-col let-data="rowData">
+                  <span>{{serviceList.TANGGAL | date: 'dd/MM/yy'}}</span>
+              </template>
+            </p-column>
+
+            <p-column field="NOMOR_NOTA" header="NOMOR NOTA" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="NAMA_CUSTOMER" header="NAMA CUSTOMER" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="KODE_PRODUK" header="KODE BARANG" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="NOMOR_SERI" header="NOMOR SERI" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="STATUS" header="STATUS" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        </p-dataTable>
+      </ba-card>
+  </div>
+</div>-->
+
+<input type="text" (blur)="browseServicebyText()" [(ngModel)]="ServiceDataInput.KODE_SERVICE" class="form-control with-danger-addon" placeholder="Nomor Service" (keyup)="noservicekeyup(ServiceDataInput.KODE_SERVICE)" [disabled] = "componentDisableService">
+<button class="btn btn-primary" type="button" (click)="browseService()" [disabled] = "componentDisableService"><i class="ion-ios-search"></i></button>
+
+<p-dialog header="LIST SERVICE" [(visible)]="display" modal="true" height="650" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+        <form class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label" style="color: black">Tanggal Dari: </label>
+                <div class="col-sm-3">
+                    <p-calendar [(ngModel)]="dateFr" [showIcon]="false" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <label class="col-sm-2 form-control-label" style="color: black">Tanggal Sampai: </label>
+                <div class="col-sm-3">
+                    <p-calendar [(ngModel)]="dateTo" [showIcon]="false" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="button" (click)="search()">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <p-dataTable [value]="serviceList"[responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+            [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)">
+            <p-column field="KODE_SERVICE" header="KODE SERVICE" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column> 
+
+            <p-column field="TANGGAL" header="TANGGAL" [sortable]="true" [filter]="true" filterPlaceholder="Search">      
+              <template let-col let-data="rowData" pTemplate="body">
+                    <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                </template>
+            </p-column>
+
+            <p-column field="KODE_CUSTOMER" header="KODE CUSTOMER" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="STATUS" header="STATUS" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        </p-dataTable>
+        <br />
+        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    <!--</ba-card>-->
+</p-dialog>

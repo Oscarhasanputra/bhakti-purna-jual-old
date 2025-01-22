@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Claim Report">
+            <div class="row show-grid">
+                <div class="col-md-3">
+                    <browselistbassreport (showPilihKodeBassChild)='handleEvent($event)' (kodeBassChild)='kodeBassEvent($event)'></browselistbassreport>
+                </div>
+            </div>
+
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <div *ngFor="let claimReports of claimReport; let i=index">
+                <div class="kodeclaim">
+                    <div class="div-jarak">Kode Claim : {{claimReports.KODE_CLAIM}}</div>
+                    <div>Status Paid/Not Paid : {{claimReports.Paid}}</div>
+                </div>
+                <table class="mytable">
+                    <tr>
+                        <th class="nourut">No</th>
+                        <th>Kode Service</th>
+                        <th>Tanggal</th>
+                        <th>Nomor Nota</th>
+                        <th>Merk</th>
+                        <th>Kode Produk</th>
+                        <th>Nomor Seri</th>
+                        <th>Kerusakan</th>
+                        <th>Biaya</th>
+                        <th>Transport</th>
+                        <th>Valid</th>
+                    </tr>
+                    <tr *ngFor="let dt of claimReports['DETAILS']; let a=index">
+                        <td>{{a + 1}}</td>
+                        <td>{{dt.Kode_Service}}</td>
+                        <td>{{dt.Tanggal_Service | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{dt.Nomor_Nota}}</td>
+                        <td>{{dt.Merk}}</td>
+                        <td>{{dt.Kode_Produk}}</td>
+                        <td>{{dt.Nomor_Seri}}</td>
+                        <td>{{dt.Kerusakan}}</td>
+                        <td>{{dt.Biaya}}</td>
+                        <td>{{dt.Transport}}</td>
+                        <td>{{dt.Valid}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<ba-card title="Master Aplikasi" hidden>
+    <div>
+        Kode Aplikasi : <input type="text" class="form-control" [(ngModel)]="kode_aplikasi">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="loadData()">Search</button>
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Applikasi List" baCardClass="with-scroll table-panel">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="KODE_APPLICATION" header="Kode Aplikasi" [style]="{'color':'black'}"></p-column>
+        <p-column field="NAMA_APPLICATION" header="Nama Aplikasi" [style]="{'color':'black'}"></p-column>
+    </p-dataTable>
+</ba-card>

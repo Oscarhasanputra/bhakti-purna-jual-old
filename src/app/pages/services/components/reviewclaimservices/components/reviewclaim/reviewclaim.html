@@ -1,0 +1,98 @@
+<div [ngBusy]="busyLoaderEvent"></div>
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <div class="col-md-10">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label" style="font-size: 18px; font-weight: bold;">Nomor Claim :</label>
+                    <label class="col-sm-5" style="font-size: 18px; font-weight: bold;">
+                            {{NoClaim}}
+                        </label>
+                </div>
+            </div>
+
+            <p-dataTable [value]="services" [responsive]="true" [stacked]="stacked" sortMode="multiple" [rows]="4" [paginator]="true"
+                [pageLinks]="5" [style]="{'color':'black'}" [rowStyleClass]="changeBgColor">
+                <p-column field="NOMOR_NOTA" header="No Nota"></p-column>
+                <p-column field="TANGGAL" header="Tanggal">
+                    <template let-col let-data="rowData" pTemplate="body">
+                        <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                    </template>
+                </p-column>
+                <p-column field="NAMA_CUSTOMER" header="Customer"></p-column>
+                <p-column field="ALAMAT_CUSTOMER" header="Alamat" [style]="{'width':'250px'}"></p-column>
+                <p-column field="KODE_BARANG" header="Kode Barang"></p-column>
+                <p-column field="NOMOR_SERI_BARANG" header="Nomor Seri"></p-column>
+                <p-column field="ISVALID" header="Valid" styleClass="col-button" [style]="{'width':'60px'}">
+                    <template let-col let-claim="rowData" let-ri="rowIndex" pTemplate="body">
+                        <div style="text-align: center;">
+                            <input type="radio" name="radioValid{{ri}}" value=1 [(ngModel)]="claim[col.field]">
+                        </div>
+                    </template>
+                </p-column>
+                <p-column field="ISVALID" header="Not Valid" styleClass="col-button" [style]="{'width':'60px'}">
+                    <template let-col let-claim="rowData" let-ri="rowIndex" pTemplate="body">
+                        <div style="text-align: center;">
+                            <input type="radio" name="radioValid{{ri}}" value=0 [(ngModel)]="claim[col.field]">
+                        </div>
+                    </template>
+                </p-column>
+                <p-column field="REASON" header="Catatan" [style]="{'width':'200px'}">
+                    <template let-col let-data="rowData" pTemplate="body">
+                        <div style="text-align: center;">
+                            <textarea rows="1" cols="15" [(ngModel)]="data[col.field]" [disabled]="data.ISVALID =='1'"></textarea>
+                        </div>
+                    </template>
+                </p-column>
+                <p-column header="Proceed" styleClass="col-button" [style]="{'width':'75px'}" hidden="{{StatusClaim=='2'}}">
+                    <template let-claim="rowData" pTemplate="body">
+                        <div style="text-align: center;">
+                            <button type="button" pButton (click)="reviewService(claim)" icon="fa-upload"></button>
+                        </div>
+                    </template>
+                </p-column>
+            </p-dataTable>
+
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary btn-lg" style="width:150px" (click)="cancel()">Close</button>
+            </div>
+        </ba-card>
+    </div>
+</div>
+
+<p-confirmDialog width="425 " style="color: black; font-weight: bold; " appendTo="body"></p-confirmDialog>
+
+
+<!--<table>
+                <tr>
+                    <td style=" width:200px ">Nomor Claim</td>
+                    <td style="width:20px ">:</td>
+                    <td><span>< Auto Generated ></span></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>{{dateTrx | date: 'dd-MMM-yyyy hh:mm '}}</td>
+                </tr>
+                <tr>
+                    <td>Kode Bass</td>
+                    <td>:</td>
+                    <td><b><span> {{KodeBass}} </span></b> - <span>{{NamaBass}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>Tanggal Dari</td>
+                    <td>:</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateFr " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td>Tanggal Sampai</td>
+                    <td>&nbsp; : &nbsp;</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateTo " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td><button type="button " class="btn btn-default " (click)="loadData() ">Search</button></td>
+                </tr>
+            </table>-->

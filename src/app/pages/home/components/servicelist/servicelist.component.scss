@@ -1,0 +1,41 @@
+.mytable { 
+    border-collapse: collapse; 
+    margin-top:10px;
+    margin-bottom:40px;
+    table-layout: fixed;
+    width: 100%;
+    color: black;
+    background-color:#ffffff;
+}
+/* Zebra striping */
+.mytable tr:nth-of-type(odd) { 
+    background: #eee; 
+    }
+.mytable th { 
+    background: #3498db; 
+    color: white; 
+    }
+.mytable td, th { 
+    padding: 7px; 
+    border: 1px solid #ccc; 
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;
+    }
+.mytable .nourut {
+    width:30px;
+}
+
+.kodeclaim {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.div-jarak {
+    margin:10px 0px 10px 0px;
+}
+
+.dropdownbtn {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}

@@ -1,0 +1,41 @@
+<ba-card title="Maintain Transportasi">
+    <div hidden>
+        Search : <input type="text" class="form-control" [(ngModel)]="kode_transportasi">
+    </div>
+    <br>
+    <button hidden class="btn btn-primary" (click)="loadData()">Search</button>
+    <button class="btn btn-primary" (click)="tambahTransportasi()">Tambah Biaya Transportasi</button>
+
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Transportasi List" baCardClass="with-scroll table-panel">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="KODE_TRANS" header="Kode Transportasi" [style]="{'color':'black'}"></p-column>
+        <p-column field="JARAK" header="Jarak" [style]="{'color':'black'}"></p-column>
+        <p-column field="BIAYA" header="Biaya" [style]="{'color':'black'}"></p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="edit(data.KODE_TRANS)" class="status-button btn btn-xs btn-primary">Edit</button>
+            </template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="delete(data.KODE_TRANS)" class="btn btn-xs btn-danger">Delete</button>
+            </template>
+        </p-column>
+    </p-dataTable>
+</ba-card>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>

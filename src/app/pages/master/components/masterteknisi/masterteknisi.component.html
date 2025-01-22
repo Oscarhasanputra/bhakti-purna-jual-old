@@ -1,0 +1,61 @@
+<ba-card title="Maintain Teknisi">
+    <div *ngIf="showPilihKodeBass">
+        <browselistbassmaster (kodeBassChild)='kodeBassEvent($event)'></browselistbassmaster>
+    </div>
+
+    <div class="dropdownbtn">
+        Status : <select class="form-control" [(ngModel)]="selectedStatus">
+            <option *ngFor="let s of status" [value]="s.value">  
+            {{s.label}}
+            </option>
+        </select>
+    </div>
+
+    <div hidden>
+        Nama : <input type="text" class="form-control" [(ngModel)]="kode_teknisi">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="loadData()">Search</button>
+    <button class="btn btn-primary" (click)="tambahTeknisi()">Tambah Teknisi</button>
+
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Teknisi List" baCardClass="with-scroll table-panel">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
+        <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
+        <p-column field="KODE_TEKNISI" header="Kode Teknisi" [style]="{'color':'black'}"></p-column>
+        <p-column field="NAMA_TEKNISI" header="Nama Teknisi" [style]="{'color':'black'}"></p-column>
+        <p-column field="FLAG" header="Status" [style]="{'color':'black'}"></p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="edit(data.KODE_BASS,data.KODE_TEKNISI)" class="status-button btn btn-xs btn-primary">Edit</button>
+            </template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <div *ngIf="data.FLAG == 'Inactive'">
+                    <button (click)="activate(data.KODE_TEKNISI)" class="btn btn-xs btn-warning">Reactivate</button>
+                </div>
+                <div *ngIf="data.FLAG == 'Active'">
+                    <button (click)="delete(data.KODE_TEKNISI)" class="btn btn-xs btn-danger">Non-Aktif</button>
+                </div>
+
+            </template>
+        </p-column>
+    </p-dataTable>
+</ba-card>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>

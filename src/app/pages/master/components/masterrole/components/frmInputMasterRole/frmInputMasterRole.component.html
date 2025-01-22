@@ -1,0 +1,56 @@
+<ba-card title="Tambah Role">
+
+    <div>
+        <div *ngIf="validationSukses" class="alert alert-success" role="alert">
+            {{validationSukses}}
+            <button (click)="cancel()" class="btn btn-info">{{navigasi}}</button>
+        </div>
+        <div class="form-group row">
+            Kode Role : {{sKodeRole}}
+        </div>
+        <div class="form-group row">
+            Nama Role : <input type="text" [(ngModel)]="nama_role" [ngModelOptions]="{standalone: true}" class="form-control"
+                placeholder="Nama Role" pattern="[a-zA-Z-0-9. ]+">
+        </div>
+        <div class="form-group row">
+            Support Center : <input type="checkbox" [checked]="support_center" [(ngModel)]="support_center" class="form-control">
+            <!-- Support Center : <input type="checkbox" [checked]="false" [(ngModel)]="support_center" [ngModelOptions]="{standalone: true}"
+                    class="form-control"> -->
+        </div>
+        <div>
+            Pilih Hak :
+            <table class="mytable">
+                <tr>
+                    <th>No</th>
+                    <th>Kode Aplikasi</th>
+                    <th>Nama Aplikasi</th>
+                    <th>View?</th>
+                    <th>Insert?</th>
+                    <th>Edit?</th>
+                    <th>Delete?</th>
+                </tr>
+                <tr *ngFor="let sources of source; let a=index">
+                    <!--<td>{{a + 1}} <input type="checkbox" [(ngModel)]="sources.checked" (change)="selectRow(sources, a)" /></td>-->
+                    <td>{{a + 1}}</td>
+                    <td>{{sources.KODE_APPLICATION}}</td>
+                    <td>{{sources.NAMA_APPLICATION}}</td>
+                    <td><input type="checkbox" [checked]="sources.HAK_AKSES" [(ngModel)]="sources.HAK_AKSES" (change)="toggle(a, sources.HAK_AKSES, 'HAK_AKSES')"
+                        /></td>
+                    <td><input type="checkbox" [checked]="sources.HAK_INSERT" [(ngModel)]="sources.HAK_INSERT" (change)="toggle(a, sources.HAK_INSERT, 'HAK_INSERT')"
+                        /></td>
+                    <td><input type="checkbox" [checked]="sources.HAK_EDIT" [(ngModel)]="sources.HAK_EDIT" (change)="toggle(a, sources.HAK_EDIT, 'HAK_EDIT')"
+                        /></td>
+                    <td><input type="checkbox" [checked]="sources.HAK_DELETE" [(ngModel)]="sources.HAK_DELETE" (change)="toggle(a, sources.HAK_DELETE, 'HAK_DELETE')"
+                        /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row show-grid">
+            <button class="btn btn-primary" (click)="save()">Save</button>
+            <button class="btn btn-primary" (click)="cancel()">Kembali ke Halaman Sebelumnya</button>
+        </div>
+
+    </div>
+
+</ba-card>

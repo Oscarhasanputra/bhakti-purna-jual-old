@@ -1,0 +1,34 @@
+<div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
+  <a routerLink="/pages/home" class="al-logo clearfix"><span></span>BIT PURNA JUAL</a>
+  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
+
+  <div class="user-profile clearfix">
+    <div class="dropdown al-user-profile">
+      <table cellspacing="4">
+        <tr>
+          <td width="450" style="text-align: right;"><span style="font-size: 20px;">Welcome, {{username}}</span></td>
+          <td rowspan="2" width="50" style="text-align: center;">
+            <div>
+              <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-sign-out" style="font-size:24px;"></i>
+              </a>
+              <ul style="font-size: 18px;" class="dropdown-menu top-dropdown-menu profile-dropdown">
+                <li class="dropdown-item"><a href="javascript:void(0)" (click)="logOut()"><i class="fa fa-power-off"></i>Sign out</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="450" style="text-align: right;"><span style="font-size: 12px;">( {{nama_bass}} )</span></td>
+        </tr>
+      </table>
+
+
+
+
+      <br />
+
+
+    </div>
+  </div>
+</div>

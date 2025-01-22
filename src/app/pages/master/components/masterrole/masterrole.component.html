@@ -1,0 +1,42 @@
+<ba-card title="Maintain Role">
+    <div hidden>
+        Kode Role : <input type="text" class="form-control" [(ngModel)]="kode_role">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="loadData()" hidden>Search</button>
+    <button class="btn btn-primary" (click)="tambahRole()">Tambah Role</button>
+
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Role List" baCardClass="with-scroll table-panel">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="KODE_ROLE" header="Kode Role" [style]="{'color':'black'}"></p-column>
+        <p-column field="NAMA_ROLE" header="Nama Role" [style]="{'color':'black'}"></p-column>
+        <p-column field="IS_SUPPORT_CENTER_WORD" header="Support Center" [style]="{'color':'black'}"></p-column>
+        <p-column field="IS_SUPPORT_CENTER" header="Support Center" [style]="{'color':'black'}" hidden="hidden"></p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="edit(data.KODE_ROLE,data.KODE_ROLE)" class="status-button btn btn-xs btn-primary">Edit</button>
+            </template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="delete(data.KODE_ROLE)" class="btn btn-xs btn-danger">Delete</button>
+            </template>
+        </p-column>
+    </p-dataTable>
+</ba-card>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>

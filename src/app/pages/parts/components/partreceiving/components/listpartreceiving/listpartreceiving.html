@@ -1,0 +1,40 @@
+<input type="text" (blur)="browsePRbyText()" [(ngModel)]="nopr.NoPR" class="form-control with-danger-addon" placeholder="< Auto Generated >"
+    (keyup)="noprkeyup(nopr.NoPR)">
+<button class="btn btn-primary" type="button" (click)="browsePR()">Add</button>
+
+<p-dialog header="LIST PR" [(visible)]="display" modal="true" height="650" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label" style="color: black">Tanggal Dari: </label>
+            <div class="col-sm-3">
+                <p-calendar [(ngModel)]="dateFr" [showIcon]="false" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+            </div>
+            <label class="col-sm-2 form-control-label" style="color: black">Tanggal Sampai: </label>
+            <div class="col-sm-3">
+                <p-calendar [(ngModel)]="dateTo" [showIcon]="false" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary" type="button" (click)="search()">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="prlist" [(selection)]="selectedPR" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+        [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb"
+        #dt>
+        <p-column field="NO_PR" header="Nomor Part Receiving" [style]="{'width':'200px'}" [sortable]="true"></p-column>
+        <p-column field="TANGGAL" header="Tanggal" [style]="{'width':'200px'}" [sortable]="true">
+            <template let-col let-data="rowData" pTemplate="body">
+                <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+            </template>
+        </p-column>
+        <p-column field="CATATAN" header="Catatan" [style]="{'width':'300px'}" [sortable]="true"></p-column>
+    </p-dataTable>
+    <br />
+    <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    <!--</ba-card>-->
+</p-dialog>

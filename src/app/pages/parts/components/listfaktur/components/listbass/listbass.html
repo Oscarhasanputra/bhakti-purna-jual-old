@@ -1,0 +1,17 @@
+<input type="text" (blur)="browseBassbyText()" [(ngModel)]="kodebass.kdBass" class="form-control with-danger-addon" placeholder="Kode Bass">
+<button class="btn btn-primary" type="button" (click)="browseBass()">Add</button>
+
+<p-dialog header="LIST BASS" [(visible)]="display" modal="true" height="650" width="1000" responsive="true" appendTo="body">
+    <div [ngBusy]="busyLoaderEvent"></div>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="basslist" [(selection)]="selectedBass" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+        [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>
+        <p-column field="KODE_BASS" header="Kode Bass" [style]="{'width':'200px'}" [sortable]="true"></p-column>
+        <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'width':'300px'}" [sortable]="true"></p-column>
+    </p-dataTable>
+    <br />
+    <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+</p-dialog>

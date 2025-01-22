@@ -1,0 +1,69 @@
+<button class="btn btn-primary" type="button" (click)="browseBarangExploded()" [disabled]="componentDisableBarang">Lihat Exploded</button>
+
+<p-dialog header="LIST BARANG" [(visible)]="display" modal="true" height="600" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb1 type="text" pInputText size="50" placeholder="Search">
+        </div>
+
+        <p-dataTable [value]="baranglist" [(selection)]="selectedBarang" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+            [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectBarang($event)" [globalFilter]="gb1"
+            #dt1>
+            <p-column field="Kode_Barang" header="Kode Barang" [sortable]="true"></p-column>
+            <p-column field="Nama_Barang" header="Nama Barang" [sortable]="true"></p-column>
+            <p-column field="Merek" header="Merk" [sortable]="true"></p-column>
+            <p-column field="Jenis" header="Jenis" [sortable]="true"></p-column>
+        </p-dataTable>
+        <br />
+        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    <!--</ba-card>-->
+</p-dialog>
+
+<p-dialog header="LIST EXPLODED HEADER" [(visible)]="display2" modal="true" height="600" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb2 type="text" pInputText size="50" placeholder="Search">
+        </div>
+        <p-dataTable [value]="explodedheaderlist" [(selection)]="selectedExplodedheader" [responsive]="true" sortMode="multiple"
+            [rows]="5" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectExplodedHeader($event)"
+            [globalFilter]="gb2" #dt2>
+            <p-column field="ExplodedID" header="Kode Exploded" [sortable]="true"></p-column>
+            <p-column field="tgl_Revisi" header="Tanggal Revisi" [sortable]="true">
+                <template let-col let-data="rowData" pTemplate="body">
+                    <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                </template>
+            </p-column>
+        </p-dataTable>
+        <br />
+        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    <!--</ba-card>-->
+</p-dialog>
+
+<p-dialog header="LIST EXPLODED DETAIL" [(visible)]="display3" modal="true" height="650" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+    <div class="col-md-6">
+        <canvas id="myCanvas" width="480" height="480" style="border:1px solid #d3d3d3;"></canvas>
+        <img id="scream" [src]="gambar" [hidden]="true" />
+    </div>
+    <div class="col-md-6">
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb3 type="text" pInputText size="50" placeholder="Search">
+        </div>
+        <p-dataTable [style]="{'width':'480px', 'font-size':'10px', 'font-weight':'bold'}" [value]="explodeddetaillist" [(selection)]="selectedExplodeddetail"
+            [responsive]="true" sortMode="multiple" [rows]="8" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}"
+            selectionMode="multiple" [globalFilter]="gb3" #dt3>
+            <p-column [style]="{'width':'3px'}" selectionMode="multiple"></p-column>
+            <p-column [style]="{'width':'10px'}" field="Nomor" header="No." [sortable]="true"></p-column>
+            <p-column [style]="{'width':'40px'}" field="PartID" header="Kode Part" [sortable]="true"></p-column>
+            <p-column [style]="{'width':'70px'}" field="PartName" header="Nama Part" [sortable]="true"></p-column>
+            <p-column [style]="{'width':'30px'}" field="Harga" header="Harga" [sortable]="true"></p-column>
+        </p-dataTable>
+
+        <button type="button" class="btn btn-primary" (click)="addtogrid()">Add</button> &nbsp; &nbsp; &nbsp;
+        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    </div>
+    <!--</ba-card>-->
+</p-dialog>

@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Claim Report">
+        <div class="row show-grid">
+          <div class="col-md-3">
+            <div *ngIf="showPilihKodeBass">
+                <div class="input-group">
+                    <input type="text" class="form-control with-danger-addon" [(ngModel)]="sKodeBass" placeholder="Kode Bass">
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button" (click)="showDialog()">...</button>
+                    </span>
+                </div>
+            </div>
+          </div>
+        </div>
+
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <table class="mytable">
+                <tr>
+                    <td class="nourut">No</td>
+                    <td>No PR</td>
+                    <td>Tanggal</td>
+                    <td>No Invoice</td>
+                    <td>PartID</td>
+                    <td>Qty</td>
+                    <td>No PO</td>
+                    <td>Catatan</td>
+                </tr>
+                <tr *ngFor="let reportPartReceiving of reportPartReceivings; let a=index">
+                    <td>{{a + 1}}</td>
+                    <td>{{reportPartReceiving.NO_PR}}</td>
+                    <td>{{reportPartReceiving.TANGGAL | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportPartReceiving.NO_INVOICE}}</td>
+                    <td>{{reportPartReceiving.PARTID}}</td>
+                    <td>{{reportPartReceiving.Quantity}}</td>
+                    <td>{{reportPartReceiving.NO_PO}}</td>
+                    <td>{{reportPartReceiving.CATATAN}}</td>
+                </tr>
+            </table>
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="List Bass" [(visible)]="display" width="600" responsive="true">
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search Kode bass / Nama Bass">
+        </div>
+        <p-dataTable [value]="listBass" [rows]="10" [paginator]="true" selectionMode="single" [(selection)]="selectedBass" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>
+            <p-footer><div style="text-align: left">Selected: {{selectedBass ? selectedBass.KODE_BASS: 'None'}}</div></p-footer>
+            <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
+        </p-dataTable>
+</p-dialog>

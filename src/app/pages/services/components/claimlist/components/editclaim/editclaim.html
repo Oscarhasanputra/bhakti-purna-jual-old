@@ -1,0 +1,77 @@
+<div [ngBusy]="busyLoaderEvent"></div>
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <div class="col-md-10">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label" style="font-size: 18px; font-weight: bold;">Nomor Claim :</label>
+                    <label class="col-sm-5" style="font-size: 18px; font-weight: bold;">
+                            {{NoClaim}}
+                        </label>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label" style="font-size: 18px; font-weight: bold;">Tanggal : </label>
+                    <label class="col-sm-5" style="font-size: 18px; font-weight: bold;">
+                {{TglClaim | date: 'dd-MMM-yyyy HH:mm'}}
+                </label>
+                </div>
+            </div>
+            <p-dataTable [value]="services" [(selection)]="selectedServices" [responsive]="true" [stacked]="stacked" sortMode="multiple"
+                [rows]="5" [paginator]="true" [pageLinks]="5" [style]="{'color':'black'}">
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column field="No" header="No" [sortable]="true" [filter]="true" filterPlaceholder="Nomor" [style]="{'width':'50px'}" filterMatchMode="contains"></p-column>
+                <p-column field="NOMOR_SERVICE" header="Kode Service" [sortable]="true" [filter]="true" filterPlaceholder="Cari Kode Service"
+                    [style]="{'width':'150px'}" filterMatchMode="contains"></p-column>
+                <p-column field="NAMA_CUSTOMER" header="Nama Customer" [sortable]="true" [filter]="true" filterPlaceholder="Cari Customer"
+                    filterMatchMode="contains" [style]="{'width':'150px'}"></p-column>
+                <p-column field="KODE_PRODUK" header="Kode Produk" [sortable]="true" [filter]="true" [style]="{'width':'120px'}" filterPlaceholder="Cari Kode Produk"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="NOMOR_SERI" header="Nomor Seri" [sortable]="true" [filter]="true" filterPlaceholder="Cari Nomor Seri" [style]="{'width':'100px'}"
+                    filterMatchMode="contains"></p-column>
+            </p-dataTable>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary btn-lg" style="width:150px" (click)="saveData(selectedServices)">Save</button>
+                <button type="button" class="btn btn-primary btn-lg" style="width:150px" (click)="cancel()">Cancel</button>
+            </div>
+        </ba-card>
+    </div>
+</div>
+
+<p-confirmDialog width="425 " style="color: black; font-weight: bold; " appendTo="body"></p-confirmDialog>
+
+
+<!--<table>
+                <tr>
+                    <td style=" width:200px ">Nomor Claim</td>
+                    <td style="width:20px ">:</td>
+                    <td><span>< Auto Generated ></span></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>{{dateTrx | date: 'dd-MMM-yyyy hh:mm '}}</td>
+                </tr>
+                <tr>
+                    <td>Kode Bass</td>
+                    <td>:</td>
+                    <td><b><span> {{KodeBass}} </span></b> - <span>{{NamaBass}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>Tanggal Dari</td>
+                    <td>:</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateFr " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td>Tanggal Sampai</td>
+                    <td>&nbsp; : &nbsp;</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateTo " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td><button type="button " class="btn btn-default " (click)="loadData() ">Search</button></td>
+                </tr>
+            </table>-->

@@ -1,0 +1,47 @@
+<ba-card title="Tambah Customer">
+    <div *ngIf="validationSukses" class="alert alert-success" role="alert">
+        {{validationSukses}} 
+        <button (click)="cancel()" class="btn btn-info">{{navigasi}}</button>
+    </div>
+    <div>
+
+        <form [formGroup]="registerCustomer">
+            <div class="form-group row">
+                Kode Customer : {{sKodeCustomer}}
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!nama_customer.valid && nama_customer.touched), 'has-success': (nama_customer.valid && nama_customer.touched)}">
+                Nama Customer : <input type="text" class="form-control" placeholder="Nama Customer" [formControl]="nama_customer" pattern="[a-zA-Z-0-9. ]+">
+                <div *ngIf="(!nama_customer.valid && nama_customer.touched)" class="validateError" >Nama tidak boleh kosong / Hanya boleh Alphabet dan angka</div>
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!alamat_customer.valid && alamat_customer.touched), 'has-success': (alamat_customer.valid && alamat_customer.touched)}">
+                Alamat Customer : <input type="text" class="form-control" placeholder="Alamat Customer" [formControl]="alamat_customer">
+                <div *ngIf="(!alamat_customer.valid && alamat_customer.touched)" class="validateError" >Alamat Tidak boleh kosong</div>
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!nomor_telepon.valid && nomor_telepon.touched), 'has-success': (nomor_telepon.valid && nomor_telepon.touched)}">
+                Nomor Telepon : <input type="text" class="form-control" placeholder="Nomor Telepon" [formControl]="nomor_telepon" pattern="[0-9]+">
+                <div *ngIf="(!nomor_telepon.valid && nomor_telepon.touched)" class="validateError" >Nomor Telp Tidak boleh kosong / Hanya boleh angka</div>
+            </div>
+            <div class="form-group row">
+            Kota Customer : <select class="form-control" [(ngModel)]="selectedListKota" #t (change)="ZonaChanged(t.value)" [formControl]="kota">
+                    <option *ngFor="let lz of listKota" [value]="lz.label">  
+                    {{lz.label}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group row">
+                Zona : {{zona}}
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!nomor_hp.valid && nomor_hp.touched), 'has-success': (nomor_hp.valid && nomor_hp.touched)}">
+                Nomor Hp : <input type="text" class="form-control" placeholder="Nomor Hp" [formControl]="nomor_hp" pattern="[0-9]+">
+                <div *ngIf="(!nomor_hp.valid && nomor_hp.touched)" class="validateError" >Nomor Telp Tidak boleh kosong / Hanya boleh angka</div>
+            </div>
+        </form>
+
+        <div class="row show-grid">
+            <button [disabled]="!registerCustomer.valid" type="submit" class="btn btn-primary" (click)="save(registerCustomer.value)">Save</button>
+            <button class="btn btn-primary" (click)="cancel()">Kembali ke Halaman Sebelumnya</button>
+        </div>
+
+    </div>
+
+</ba-card>

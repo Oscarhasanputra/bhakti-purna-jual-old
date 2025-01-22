@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Report Finishing Service">
+            <div class="row show-grid">
+                <div class="col-md-3">
+                    <div *ngIf="showPilihListZona">
+                        <div class="dropdownbtn">
+                            <select class="form-control" [(ngModel)]="selectedListZona">
+                                <option *ngFor="let lz of listZona" [value]="lz.value">  
+                                {{lz.label}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir,selectedListZona)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <table class="mytable">
+                <tr>
+                    <td class="nourut">No</td>
+                    <td>Nama Bass</td>
+                    <td>Kode Service</td>
+                    <td>Tanggal Masuk</td>
+                    <td>Tanggal Selesai</td>
+                    <td>Teknisi</td>
+                    <td>Barang</td>
+                    <td>Nomor Seri</td>
+                    <td>PartID</td>
+                    <td>Qty</td>
+                    <td>Harga</td>
+                    <td>Biaya</td>
+                    <td>Transport</td>
+                    <td>PPN</td>
+                    <td>Biaya Total</td>
+                </tr>
+                <tr *ngFor="let reportFinishingSevice of reportFinishingSevices; let a=index">
+                    <td>{{a + 1}}</td>
+                    <td>{{reportFinishingSevice.NAMA_BASS}}</td>
+                    <td>{{reportFinishingSevice.KODE_SERVICE}}</td>
+                    <td>{{reportFinishingSevice.TANGGAL | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportFinishingSevice.TANGGAL_SELESAI | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportFinishingSevice.NAMA_TEKNISI}}</td>
+                    <td>{{reportFinishingSevice.KODE_PRODUK}}</td>
+                    <td>{{reportFinishingSevice.NOMOR_SERI}}</td>
+                    <td>{{reportFinishingSevice.PARTID}}</td>
+                    <td>{{reportFinishingSevice.QTY}}</td>
+                    <td>{{reportFinishingSevice.HARGA}}</td>
+                    <td>{{reportFinishingSevice.BIAYA}}</td>
+                    <td>{{reportFinishingSevice.BIAYA_TRANSPORT}}</td>
+                    <td>{{reportFinishingSevice.BIAYA_PPN}}</td>
+                    <td>{{reportFinishingSevice.BIAYA_TOTAL}}</td>
+                </tr>
+            </table>
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>

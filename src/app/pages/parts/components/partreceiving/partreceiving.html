@@ -1,0 +1,56 @@
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <div class="col-md-10">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Nomor Part Receiving :</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <list-partreceiving (modalheader)="handleEventHeader($event)" (nopokeypress)="handlekeypresnopr($event)" [(nopr)] = dataHeader></list-partreceiving>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Tanggal Terima : </label>
+                        <label class="col-sm-5">
+                            {{dataHeader.dateTrx | date: 'dd-MMM-yyyy HH:mm '}}
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Catatan :</label>
+                        <div class="col-sm-5">
+                            <textarea class="form-control" rows="3" [(ngModel)]="dataHeader.catatan" [ngModelOptions]="{standalone: true}" placeholder="Catatan"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <br />
+            <br />
+
+
+            <p-dataTable [value]="invoiceListPRList" [(selection)]="selectedInvoice" [responsive]="true" [stacked]="stacked" sortMode="multiple"
+                [editable]="true" [rows]="15" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [style]="{'color': 'black'}"
+                (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+                <p-column [style]="{'width':'10px'}" selectionMode="multiple"></p-column>
+                <p-column field="NO_INVOICE" header="No Faktur" [style]="{'width':'100px'}"></p-column>
+                <p-column field="PARTID" header="Kode Sparepart" [style]="{'width':'100px'}"></p-column>
+                <p-column field="Part_Name" header="Nama Sparepart" [style]="{'width':'150px'}"></p-column>
+                <p-column field="QUANTITY" header="Qty" [style]="{'width':'30px'}" [editable]="true"></p-column>
+                <p-column field="NO_PO" header="Nomor PO" [style]="{'width':'100px'}"></p-column>
+                <p-column field="NO_CLAIM" header="Nomor Service" [style]="{'width':'100px'}"></p-column>
+            </p-dataTable>
+
+            <br />
+            <br />
+
+            <button type="button" class="btn btn-primary" (click)="save()" [disabled]=d isableSave>Save</button> &nbsp; &nbsp;
+            &nbsp;
+            <button type="button" class="btn btn-default" (click)="new()">New</button>
+
+        </ba-card>
+    </div>
+</div>

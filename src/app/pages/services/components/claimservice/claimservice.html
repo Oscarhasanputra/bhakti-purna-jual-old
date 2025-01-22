@@ -1,0 +1,106 @@
+<div [ngBusy]="busyLoaderEvent"></div>
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <br />
+            <br />
+            <div class="col-md-10">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Nomor Claim :</label>
+                    <label class="col-sm-5">
+                            < Auto Generated >
+                        </label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Tanggal : </label>
+                    <label class="col-sm-5">
+                            {{dateTrx | date: 'dd-MMM-yyyy HH:mm '}}
+                        </label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Kode Bass : </label>
+                    <label class="col-sm-5">
+                            <b><span> {{KodeBass}} </span></b> - <span>{{NamaBass}}</span>
+                        </label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Tanggal Dari: </label>
+                    <p-calendar [(ngModel)]="dateFr" [showIcon]="true" dateFormat="dd-MM-yy" readonlyInput="readonlyInput"></p-calendar>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Tanggal Sampai: </label>
+                    <p-calendar [(ngModel)]="dateTo" [showIcon]="true" dateFormat="dd-MM-yy" readonlyInput="readonlyInput"></p-calendar>
+                </div>
+                <div class="form-group row">
+                    <button type="button" class="btn btn-default" (click)="loadData()">Search</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <p-dataTable [value]="services" [(selection)]="selectedServices" [responsive]="true" [stacked]="stacked" sortMode="multiple"
+                [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [style]="{'color':'black'}">
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column field="NOMOR_SERVICE" header="Kode Service" [sortable]="true" [filter]="true" filterPlaceholder="Cari Kode Service"
+                    [style]="{'width':'150px'}" filterMatchMode="contains"></p-column>
+                <p-column field="Nomor_Nota" header="Nomor Nota" [sortable]="true" [filter]="true" filterPlaceholder="Cari Nomor Nota" [style]="{'width':'110px'}"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="TANGGAL_KEMBALI" header="Tanggal" [sortable]="true" [filter]="true" filterPlaceholder="Cari Tanggal" [style]="{'width':'100px'}"
+                    filterMatchMode="contains">
+                    <template let-col let-data="rowData" pTemplate="body">
+                        <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                    </template>
+                </p-column>
+                <p-column field="JAM_MASUK" header="Jam Masuk" [sortable]="true" [filter]="true" filterPlaceholder="Cari Jam" [style]="{'width':'120px'}"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="NAMA_CUSTOMER" header="Nama Customer" [sortable]="true" [filter]="true" filterPlaceholder="Cari Customer"
+                    filterMatchMode="contains" [style]="{'width':'150px'}"></p-column>
+                <p-column field="KODE_PRODUK" header="Kode Produk" [sortable]="true" [filter]="true" [style]="{'width':'120px'}" filterPlaceholder="Cari Kode Produk"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="NOMOR_SERI" header="Nomor Seri" [sortable]="true" [filter]="true" filterPlaceholder="Cari Nomor Seri" [style]="{'width':'100px'}"
+                    filterMatchMode="contains"></p-column>
+            </p-dataTable>
+            <br />
+            <br />
+            <button type="button" class="btn btn-primary" (click)="saveData(selectedServices)" [disabled]="!HakAkses.HAK_INSERT">Save</button>            &nbsp; &nbsp;
+        </ba-card>
+    </div>
+</div>
+
+<p-confirmDialog width="425 " style="color: black; font-weight: bold; "></p-confirmDialog>
+
+
+<!--<table>
+                <tr>
+                    <td style=" width:200px ">Nomor Claim</td>
+                    <td style="width:20px ">:</td>
+                    <td><span>< Auto Generated ></span></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>{{dateTrx | date: 'dd-MMM-yyyy hh:mm '}}</td>
+                </tr>
+                <tr>
+                    <td>Kode Bass</td>
+                    <td>:</td>
+                    <td><b><span> {{KodeBass}} </span></b> - <span>{{NamaBass}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>Tanggal Dari</td>
+                    <td>:</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateFr " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td>Tanggal Sampai</td>
+                    <td>&nbsp; : &nbsp;</td>
+                    <td>
+                        <p-calendar [(ngModel)]="dateTo " [showIcon]="true " dateFormat="dd-MM-yy "></p-calendar>
+                    </td>
+                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td><button type="button " class="btn btn-default " (click)="loadData() ">Search</button></td>
+                </tr>
+            </table>-->

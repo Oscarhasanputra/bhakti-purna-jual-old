@@ -1,0 +1,22 @@
+<!-- lookup service list -->
+<ba-card title="list service" baCardClass="with-scroll" *ngIf="flagHidden">
+    <div class="form-horizontal col-md-10 offset-md-2">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Kode / Nama</label>
+            <div class="col-sm-7">
+            <input type="text" class="form-control" id="inputEmail3"  [(ngModel)]="filterTeknisi.kodeTeknisi" [ngModelOptions]="{standalone: true}"  placeholder="Cari berdasakan Kode/Nama Teknisi">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-7">
+            <button class="btn btn-warning" (click)="buttonSearchClicked(filterTeknisi.kodeTeknisi)">Search</button>
+            <button class="btn btn-success" (click)="onCancelBrowse()"><i class="ion-arrow-return-left"></i> Kembali</button>
+            </div>
+        </div>
+    </div>
+    <p-dataTable [value]="teknisiList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
+        selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)" [style]="{'color': 'black'}">
+        <p-column field="KODE_TEKNISI" header="Kode Teknisi" [sortable]="true"></p-column> 
+        <p-column field="NAMA_TEKNISI" header="Nama Teknisi" [sortable]="true" ></p-column>
+    </p-dataTable>
+</ba-card>

@@ -1,0 +1,38 @@
+<!-- lookup customer list -->
+<ba-card title="list customer" baCardClass="with-scroll" *ngIf="flagHidden">
+    <div class="form-horizontal col-md-10 offset-md-2">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 form-control-label">Kode / Nama / Telp / Hp Customer</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="customer.filter" [ngModelOptions]="{standalone: true}" placeholder="Cari berdasakan Kode/Nama/Telp/Hp">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 form-control-label">Zona Customer</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="exampleSelect1" [(ngModel)]="customer.zona" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let list of zonaList" [ngValue]="list.ZONA">{{ list.NAMA_ZONA }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-4 col-sm-7">
+            <button class="btn btn-warning" (click)="searchCustomerClicked(customer.filter, customer.zona)" >Search</button>
+            <button class="btn btn-success" (click)="onCancelCustomerBrowse()"><i class="ion-arrow-return-left"></i> Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <div [ngBusy]="busyloadevent"></div>
+    
+    <p-dataTable [value]="customerList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
+        selectionMode="single" [(selection)]="selectedCustomer" (onRowSelect)="onRowSelectCustomer($event)" [style]="{'color': 'black'}">
+        <p-column field="KODE_CUSTOMER" header="Kode" [sortable]="true"></p-column> 
+        <p-column field="NAMA_CUSTOMER" header="Nama" [sortable]="true" ></p-column>
+        <p-column field="TELP_CUSTOMER" header="Telepon" [sortable]="true" ></p-column>
+        <p-column field="ALAMAT_CUSTOMER" header="Alamat" [sortable]="true" ></p-column>
+        <p-column field="KOTA_CUSTOMER" header="Kota" [sortable]="true" ></p-column>
+        <p-column field="NAMA_ZONA" header="Zona" [sortable]="true"></p-column>
+        <p-column field="HP_CUSTOMER" header="Hp" [sortable]="true"></p-column>
+    </p-dataTable>        
+</ba-card>

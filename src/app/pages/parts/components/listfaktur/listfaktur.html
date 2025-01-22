@@ -1,0 +1,138 @@
+<!--<div *ngIf="showparent">-->
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            
+                <form class="form-horizontal">
+                    <div [hidden]="basslistFlag">
+                      <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Kode Bass : </label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <list-bass-LF (BassdataOutput)="handleEventHeader($event)" [(kodebass)]= dataHeader></list-bass-LF>
+                                </span>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Status : </label>
+                        <div class="col-sm-5">
+                            <select class="form-control" id="StatusInvoiceSelect" [(ngModel)]="dataHeader.selectedStatusInvoice" [ngModelOptions]="{standalone: true}"
+                                (change)="StatusChanged()">
+                                    <option *ngFor="let statusInvoice of statusInvoices" [value]="statusInvoice.NAMA_STATUS_INVOICE">  
+                                        {{statusInvoice.NAMA_STATUS_INVOICE}}
+                                    </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Tanggal Dari: </label>
+                        <div class="col-sm-3">
+                            <p-calendar [(ngModel)]="dateFr" [showIcon]="true" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                        </div>
+                        <label class="col-sm-2 form-control-label">Tanggal Sampai: </label>
+                        <div class="col-sm-3">
+                            <p-calendar [(ngModel)]="dateTo" [showIcon]="true" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary" type="button" (click)="search()">Search</button>
+                        </div>
+                    </div>
+
+
+                    <!--<div class="col-md-5">
+                        <div class="form-group row">
+                            <label class="col-sm-5 form-control-label">Tanggal Dari: </label>
+                            <p-calendar [(ngModel)]="dateFr" [showIcon]="true" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <label class="col-sm-5 form-control-label">Tanggal Sampai: </label>
+                            <p-calendar [(ngModel)]="dateTo" [showIcon]="true" dateFormat="dd-MM-yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <button class="btn btn-primary" type="button" (click)="search()">Search</button>
+                        </div>
+                    </div>-->
+                </form>
+            
+
+            <br />
+            <br />
+
+            <p-dataTable [value]="invoiceList" [responsive]="true" [stacked]="stacked" sortMode="multiple" [editable]="true" [rows]="10"
+                [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [style]="{'color': 'black'}">
+                <p-column field="NO_INVOICE" header="Nomor Invoice" [style]="{'width':'100px'}" [sortable]="true" [filter]="true" filterPlaceholder="Nomor Invoice"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="TANGGAL" header="Tanggal" [style]="{'width':'80px'}">
+                    <template let-col let-data="rowData" pTemplate="body">
+                        <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                    </template>
+                </p-column>
+                <p-column field="NO_PO" header="Nomor PO" [style]="{'width':'100px'}" [sortable]="true" [filter]="true" filterPlaceholder="Nomor PO"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="KODE_BASS" header="Kode Bass" [style]="{'width':'70px'}" [sortable]="true" [filter]="true" filterPlaceholder="Kode Bass"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'width':'150px'}" [sortable]="true" [filter]="true" filterPlaceholder="Nama Bass"
+                    filterMatchMode="contains"></p-column>
+                <p-column field="STATUS" header="Status" [style]="{'width':'80px'}" [sortable]="true" [filter]="true" filterPlaceholder="Status"
+                    filterMatchMode="contains"></p-column>
+                <p-column styleClass="col-button" [style]="{'width':'30px'}">
+                    <template let-invoice="rowData" pTemplate="body">
+                        <button type="button" class="btn btn-primary" pButton (click)="view(invoice)" icon="fa-eye"></button>
+                    </template>
+                </p-column>
+                <p-column styleClass="col-button" [hidden]="tomboldeleteFlag" [style]="{'width':'30px'}">
+                    <template let-invoice="rowData" pTemplate="body">
+                        <button type="button" class="btn btn-danger" pButton (click)="delete(invoice)" icon="fa-times"></button>
+                    </template>
+                </p-column>
+            </p-dataTable>
+
+        </ba-card>
+    </div>
+</div>
+
+<p-dialog header="EDIT FAKTUR" [(visible)]="display" modal="true" height="650" width="700" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label" style="color: black">Nomor Invoice :</label>
+            <div class="col-sm-5" style="color: black">
+                {{dataModal.NO_INVOICE}}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label" style="color: black">Tanggal : </label>
+            <label class="col-sm-5" style="color: black">
+                    {{dataModal.TANGGAL | date: 'dd-MMM-yyyy hh:mm '}}
+                </label>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label" style="color: black">Status : </label>
+            <div class="col-sm-5" style="color: black">
+                <select class="form-control" style="color: black" disabled>
+                        <option>  
+                          {{dataModal.STATUS}}
+                        </option>
+                    </select>
+            </div>
+        </div>
+    </form>
+    <p-dataTable [value]="ModalinvoiceList" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true" [pageLinks]="3"
+        [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+        <p-column field="PARTID" header="Kode Spareparet" [style]="{'width':'200px'}"></p-column>
+        <p-column field="QUANTITY" header="Quantity" [style]="{'width':'100px'}"></p-column>
+        <p-column field="NO_PO" header="Nomor PO" [style]="{'width':'300px'}"></p-column>
+    </p-dataTable>
+    <br />
+    <button type="button" class="btn btn-primary" (click)="Back()">Close</button>
+    <!--</ba-card>-->
+</p-dialog>

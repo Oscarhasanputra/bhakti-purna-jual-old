@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Report Service List">
+            <div class="row show-grid">
+                <div class="col-md-3">
+                    <browselistbassreport (showPilihKodeBassChild)='handleEvent($event)' (kodeBassChild)='kodeBassEvent($event)'></browselistbassreport>
+                    <!--<div *ngIf="showPilihKodeBass">
+                        <div class="input-group">
+                            <input type="text" class="form-control with-danger-addon" [(ngModel)]="sKodeBass" placeholder="Kode Bass">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button" (click)="showDialog()">...</button>
+                            </span>
+                        </div>
+                    </div>-->
+                
+                    <div class="dropdownbtn">
+                        <select class="form-control" [(ngModel)]="selectedStatus">
+                            <option *ngFor="let s of status" [value]="s.value">  
+                            {{s.label}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir,selectedStatus)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <table class="mytable">
+                <tr>
+                    <td class="nourut">No</td>
+                    <td>No. Nota</td>
+                    <td>Tanggal Masuk</td>
+                    <td>Tanggal Selesai</td>
+                    <td>Customer</td>
+                    <td>Telp</td>
+                    <td>Merk</td>
+                    <td>Kode Barang</td>
+                    <td>No Seri</td>
+                    <td>Status</td>
+                    <td>Kerusakan</td>
+                    <td>Perbaikan</td>
+                </tr>
+                <tr *ngFor="let reportServiceList of reportServiceLists; let a=index">
+                    <td>{{a + 1}}</td>
+                    <td>{{reportServiceList.KODE_SERVICE}}</td>
+                    <td>{{reportServiceList.TANGGAL | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportServiceList.TANGGAL_SELESAI | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportServiceList.NAMA_CUSTOMER}}</td>
+                    <td>{{reportServiceList.TELP_CUSTOMER}}</td>
+                    <td>{{reportServiceList.MERK}}</td>
+                    <td>{{reportServiceList.KODE_PRODUK}}</td>
+                    <td>{{reportServiceList.NOMOR_SERI}}</td>
+                    <td>{{reportServiceList.STATUS_PRODUK}}</td>
+                    <td>{{reportServiceList.KODE_PENGADUAN}}</td>
+                    <td>{{reportServiceList.NAMA_PERBAIKAN}}</td>
+                </tr>
+            </table>
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>
+
+<!--<p-dialog header="List Bass" [(visible)]="display" width="600" responsive="true">
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search Kode bass / Nama Bass">
+        </div>
+        <p-dataTable [value]="listBass" [rows]="10" [paginator]="true" selectionMode="single" [(selection)]="selectedBass" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>
+            <p-footer><div style="text-align: left">Selected: {{selectedBass ? selectedBass.KODE_BASS: 'None'}}</div></p-footer>
+            <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
+        </p-dataTable>
+</p-dialog>-->

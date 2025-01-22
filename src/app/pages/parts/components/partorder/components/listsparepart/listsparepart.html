@@ -1,0 +1,21 @@
+<input type="text" class="form-control" [(ngModel)]="kodesparepart" id="kodesparepart" placeholder="Kode Sparepart" [ngModelOptions]="{standalone: true}"
+    [disabled]="componentDisableSparepart">
+<button class="btn btn-primary" type="button" (click)="browseSparepart()" [disabled]="componentDisableSparepart">Add</button>
+
+<p-dialog header="LIST SPAREPART" [(visible)]="display" modal="true" height="600" width="1000" responsive="true" appendTo="body">
+    <!--<ba-card baCardClass="with-scroll">-->
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search">
+        </div>
+        <p-dataTable [value]="sparepartlist" [(selection)]="selectedSparepart" [responsive]="true" sortMode="multiple" [rows]="5"
+            [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelect($event)"
+            [globalFilter]="gb" #dt>
+            <p-column field="Part_ID" header="Id" [style]="{'width':'200px'}" [sortable]="true"></p-column>
+            <p-column field="Part_Name" header="Name" [style]="{'width':'300px'}" [sortable]="true"></p-column>
+            <p-column field="Harga" header="Harga" [style]="{'width':'100px'}" [sortable]="true"></p-column>
+        </p-dataTable>
+        <br />
+        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+        <!--</ba-card>-->
+</p-dialog>

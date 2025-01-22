@@ -1,0 +1,1 @@
+export * from './reviewclaim.component';

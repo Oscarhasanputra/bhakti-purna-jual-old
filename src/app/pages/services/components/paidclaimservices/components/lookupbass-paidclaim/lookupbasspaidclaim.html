@@ -1,0 +1,29 @@
+<div class="form-group row">
+    <label class="col-sm-3 form-control-label">Kode Bass :</label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="searchBass" (change)="textChange()">
+            <span class="input-group-btn">
+                <button class="btn btn-primary btn-sm" type="button" (click)="showModal()">...</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+<p-dialog header="List Bass" [(visible)]="display" modal="modal" responsive="true" width="1300" height="800" appendTo="body"
+    draggable="false" closeOnEscape="false" closable="false">
+    <div [ngBusy]="busyLoaderEvent"></div>
+    <div class="widgets">
+        <div class="row">
+            <ba-card baCardClass="with-scroll">
+                <p-dataTable [value]="datas" [responsive]="true" [stacked]="stacked" [rows]="5" [paginator]="true" [pageLinks]="5" [style]="{'color':'black'}"
+                    selectionMode="single" [(selection)]="selectedBass" (onRowSelect)="onRowSelect($event)">
+                    <p-column field="KODE_BASS" header="Kode Bass" [sortable]="true" [filter]="true" filterPlaceholder="Cari Kode Bass" filterMatchMode="contains"></p-column>
+                    <p-column field="NAMA_BASS" header="Nama Bass" [sortable]="true" [filter]="true" filterPlaceholder="Cari Nama Bass" filterMatchMode="contains"></p-column>
+                </p-dataTable>
+            </ba-card>
+        </div>
+    </div>
+</p-dialog>

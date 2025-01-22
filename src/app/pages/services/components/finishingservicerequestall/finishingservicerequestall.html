@@ -1,0 +1,575 @@
+<div class="widgets" *ngIf="!flaghidenMain">
+    <ba-card title="" baCardClass="with-scroll">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input05">No. Service</label> <label style="color:red;" *ngIf="flagRejected">Rejected</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control with-danger-addon" (blur)="servicelist.searchServiceEventOnBlur(data.kodeService)"
+                            [(ngModel)]="data.kodeService" [(ngModel)]="data.kodeService" [ngModelOptions]="{standalone: true}"
+                            placeholder="< Auto Generated >">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" (click)="servicelist.buttonServiceBrowseClicked()"><i class="ion-ios-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="input01">Tanggal</label>
+                            <br />
+                            <p-calendar placeholder="Isi tanggal Service disini" dateFormat="dd-mm-yy" [(ngModel)]="data.tanggal" [ngModelOptions]="{standalone: true}"
+                                [disabled]="!flagTanggal"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group right">
+                            <label for="input01">Jam masuk</label>
+                            <input type="text" placeholder="XX:XX" class="form-control with-danger-addon" [(ngModel)]="data.jamMasuk" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01" style="color: yellow">Tanggal Selesai *</label>
+                    <br />
+                    <p-calendar placeholder="Isi tanggal selesai disini" dateFormat="dd-mm-yy" [(ngModel)]="data.tanggalSelesai" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagTanggalSelesaiTextbox"></p-calendar>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">Tanggal Kembali</label>
+                    <br />
+                    <p-calendar placeholder="Isi tanggal kembali disini" dateFormat="dd-mm-yy" [(ngModel)]="data.tanggalKembali" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagTanggalKembaliTextbox"></p-calendar>
+                </div>
+
+                <div class="form-group">
+                    <label for="input05" style="color: yellow">Kode Teknisi *</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control with-danger-addon" (blur)="teknisilist.searchTeknisiEventOnBlur(data.kodeTeknisi)"
+                            [(ngModel)]="data.kodeTeknisi" [ngModelOptions]="{standalone: true}" placeholder="" [disabled]="!flagTeknisi">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" (click)="teknisilist.buttonBrowseClicked()" [disabled]="!flagTeknisi"><i class="ion-ios-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">Diambil Oleh Customer</label>
+                    <input type="text" class="form-control with-danger-addon" id="input01" [(ngModel)]="data.diambilOleh" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagDiambilOlehCustomerTextbox">
+                </div>
+
+                <div class="form-group">
+                    <label for="input05" style="color: yellow">Kode / Telp Customer *</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control with-danger-addon" (blur)="customerlist.searchCustomerEventOnBlur(data.kodeCustomer)"
+                            [disabled]="!flagInput" placeholder="Isi Kode / Telepon disini" [(ngModel)]="data.kodeCustomer" [ngModelOptions]="{standalone: true}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning" type="button" (click)="buttonCustomerTambahClicked()"><i class="ion-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" (click)="customerlist.buttonCustomerBrowseClicked()"><i class="ion-ios-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">Nama</label>
+                    <input type="text" class="form-control with-danger-addon" id="input01" placeholder="XXXXXX" [(ngModel)]="data.namaCustomer"
+                        [ngModelOptions]="{standalone: true}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">Alamat</label>
+                    <textarea placeholder="XXXXXX" class="form-control" id="textarea01" [(ngModel)]="data.alamatCustomer" [ngModelOptions]="{standalone: true}"
+                        disabled></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputFirstName">Telp</label>
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="XXXXXX" [(ngModel)]="data.telpCustomer" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputLastName">HP</label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="XXXXXX" [(ngModel)]="data.hpCustomer" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputFirstName">Kota</label>
+                            <input type="text" class="form-control" id="inputEmail" placeholder="XXXXXX" [(ngModel)]="data.kotaCustomer" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputWebsite">Zona</label>
+                            <input type="text" class="form-control" id="inputWebsite" placeholder="XXXXXX" [(ngModel)]="data.zonaCustomer" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input05" style="color: yellow">Kode Barang *</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control with-danger-addon" (blur)="baranglist.searchBarangEventOnBlur(data.kodeProduk)" placeholder="Isi Kode Barang disini"
+                            [(ngModel)]="data.kodeProduk" [ngModelOptions]="{standalone: true}" [disabled]="!flagInput">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" (click)="baranglist.buttonBarangBrowseClicked()"><i class="ion-ios-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">Nama Barang</label>
+                    <input type="text" class="form-control with-danger-addon" id="input01" placeholder="XXXXXX" [(ngModel)]="data.namaProduk"
+                        [ngModelOptions]="{standalone: true}" disabled>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputFirstName">Merek</label>
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="XXXXXX" [(ngModel)]="data.merk" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputLastName">Jenis</label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="XXXXXX" [(ngModel)]="data.jenis" [ngModelOptions]="{standalone: true}"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input01">No. Seri</label>
+                    <input type="text" class="form-control with-danger-addon" id="input01" placeholder="Isi No. Seri Disini" [(ngModel)]="data.nomorSeri"
+                        [ngModelOptions]="{standalone: true}" [disabled]="!flagInput">
+                </div>
+
+                <div class="form-group">
+                    <label for="input01" style="color: yellow">Tanggal Beli *</label>
+                    <br />
+                    <p-calendar placeholder="Isi tanggal beli disini" dateFormat="dd-mm-yy" [(ngModel)]="data.tanggalBeli" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagInput"></p-calendar>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input01">Jenis Service</label>
+                    <div class="input-demo radio-demo row">
+                        <div class="col-md-4">
+                            <label class="radio-inline custom-radio nowrap">
+                                <input type="radio" [disabled]="!flagInput"  name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="data.jenisService" [ngModelOptions]="{standalone: true}"  value="Internal">
+                                <span>Internal</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="radio-inline custom-radio nowrap">
+                                <input type="radio" [disabled]="!flagInput"  name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="data.jenisService" [ngModelOptions]="{standalone: true}" value="Kunjungan">
+                                <span>Kunjungan</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="radio-inline custom-radio nowrap">
+                                <input type="radio" [disabled]="!flagInput"  name="inlineRadioOptions" id="inlineRadio3" [(ngModel)]="data.jenisService" [ngModelOptions]="{standalone: true}" value="Keliling">
+                                <span>Keliling</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Status Barang</label>
+                    <select class="form-control" id="exampleSelect1" (change)="onChangeStatusBarang(data.statusProduk)" [(ngModel)]="data.statusProduk"
+                        [ngModelOptions]="{standalone: true}" [disabled]="!flagStatusBarang">
+                        <option *ngFor="let st_brg of status_brg" [ngValue]="st_brg">{{ st_brg }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Jenis Pengaduan</label>
+                    <select class="form-control" id="exampleSelect1" (change)="onChangeComboPengaduan(data.kodePengaduan)" [(ngModel)]="data.kodePengaduan"
+                        [ngModelOptions]="{standalone: true}" [disabled]="!flagPengaduanCombo">
+                        <option *ngFor="let list of kerusakanList" [ngValue]="list.Nama_Kerusakan">{{ list.Nama_Kerusakan }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Penyebab</label>
+                    <select class="form-control" id="exampleSelect1" (change)="onChangeComboPenyebab(data.penyebab)" [(ngModel)]="data.penyebab"
+                        [ngModelOptions]="{standalone: true}" [disabled]="!flagPenyebabCombo">
+                        <option *ngFor="let list of penyebabList" [ngValue]="list.Nama_Penyebab">{{ list.Nama_Penyebab }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Perbaikan</label>
+                    <select class="form-control" id="exampleSelect1" [(ngModel)]="data.perbaikan" [ngModelOptions]="{standalone: true}" [disabled]="!flagPerbaikanCombo">
+                        <option *ngFor="let list of perbaikanList" [ngValue]="list.NAMA_PERBAIKAN">{{ list.NAMA_PERBAIKAN }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="textarea01">Kelengkapan</label>
+                    <textarea placeholder="Isi Kelengkapan Disini" class="form-control" id="textarea01" [(ngModel)]="data.kelengkapan" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagInput"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="textarea01">Catatan</label>
+                    <textarea placeholder="Isi Catatan Disini" class="form-control" id="textarea01" [(ngModel)]="data.catatan" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagInput"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="textarea01" style="color: yellow">Nomor Nota *</label>
+                    <textarea placeholder="Isi Nomor Nota Disini" class="form-control" id="textarea01" [(ngModel)]="data.nomorNota" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagNomorNotaTexboxt"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Biaya Service</label>
+                    <input type="text" class="form-control" id="input02" placeholder="Rp. XXX.XXX.XXX" [(ngModel)]="data.biaya" [ngModelOptions]="{standalone: true}"
+                        disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Assign to Bass</label>
+                    <select class="form-control" id="exampleSelect1" (change)="onChange(data.assignToBass)" [(ngModel)]="data.assignToBass" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!flagInput">
+                        <option *ngFor="let list of assignBassList" [ngValue]="list.KODE_BASS">{{ list.NAMA_BASS }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Alamat</label>
+                    <input type="text" class="form-control" id="input02" [(ngModel)]="data.alamatAssignToBass" [ngModelOptions]="{standalone: true}"
+                        placeholder="XXXXXXX" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="input02">Kota</label>
+                    <input type="text" class="form-control" id="input02" [(ngModel)]="data.kotaAssignToBass" [ngModelOptions]="{standalone: true}"
+                        placeholder="XXXXXXX" disabled>
+                </div>
+            </div>
+        </div>
+    </ba-card>
+
+    <ba-card title="Part Ordering Status" baCardClass="with-scroll">
+        <p *ngIf="LblNotificationPO">TIDAK ADA PART ORDER</p>
+        <table class="table table-bordered" *ngIf="!LblNotificationPO">
+            <tr>
+                <td>Kode Spareprt</td>
+                <td>Qty Ordered</td>
+                <td>Qty Received</td>
+            </tr>
+            <tr *ngFor="let item of detailServiceRequestReceivedList; let myIndex = index">
+                <td>{{item.PARTID}}</td>
+                <td>{{item.QTY}}</td>
+                <td>{{item.QTYRECEIVED}}</td>
+            </tr>
+        </table>
+    </ba-card>
+
+    <ba-card title="Part Ordering Status" baCardClass="with-scroll">
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 form-control-label">Nomor Faktur</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="inputEmail3" [disabled]="!flagNomorInvoiceButton">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" [disabled]="!flagNomorInvoiceButton" (click)="fakturlist.buttonBrowseClicked('', data.kodeProduk, data.kodeService)"><i class="ion-ios-search"></i></button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 form-control-label">Kode Sparepart</label>
+                <div class="col-sm-4">
+                    <input type="text" [disabled]="!flagKodeSparepartTextbox" [(ngModel)]="kodePart" [ngModelOptions]="{standalone: true}" (blur)="partlist.searchTeknisiEventOnBlur(gloKodeBass, data.kodeProduk, data.kodeInvoice,kodePart, data.jenisService, data.kodeService)"
+                        class="form-control" id="inputPassword3">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" [disabled]="!flagAddSparepartButton" (click)="partlist.buttonBrowseClicked(data.kodeProduk, data.kodeInvoice, data.jenisService, data.kodeService)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <td>Kode Sparepart</td>
+                <td>Nama Sparepart</td>
+                <td>No Faktur</td>
+                <td>Harga</td>
+                <td>Qty</td>
+                <td>Stock</td>
+                <td>Total</td>
+                <td></td>
+            </tr>
+            <tr *ngFor="let item of data.dataDetail; let myIndex = index">
+                <td>{{item.KD_SPAREPART}}</td>
+                <td>{{item.NM_SPAREPART}}</td>
+                <td>{{item.NO_INVOICE}}</td>
+                <td>{{item.HARGA}}</td>
+                <td><input type="text" class="col-sm-1 form-control" debounce [delay]="100" (func)="onChangeQtySparepart()" [disabled]="!flagSparepartsQty"
+                        [(ngModel)]="item.QTY" [ngModelOptions]="{standalone: true}"></td>
+                <td>{{item.STOCK_CABANG}}</td>
+                <td>{{item.QTY * item.HARGA}}</td>
+                <td><button class="btn btn-danger" [disabled]="!flagRemoveSparepartButton" (click)="onDeletedDetail(myIndex)"><i class="ion-trash-a"></i></button></td>
+            </tr>
+        </table>
+    </ba-card>
+    <div [ngBusy]="busyloadevent"></div>
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">Total Harga Suku Cadang</p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{hargaTotalSukuCadang|number}}</p>
+        </div>
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">Biaya Service</p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{biayaService|number}}</p>
+        </div>
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">Biaya Transportasi
+                <select id="exampleSelect1" (change)="onChangeComboBiayaTransport(biayaTransportasi)" [(ngModel)]="biayaTransportasi" [ngModelOptions]="{standalone: true}"
+                    [disabled]="!flagBiayaTransportCombo">
+                    <option *ngFor="let list of biayaTransportList" [ngValue]="list">{{ list.BIAYA_TRANSPORTASI | number }}</option>
+                </select>
+            </p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{biayaTransportasi.BIAYA_TRANSPORTASI|number}}</p>
+        </div>
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">Sub Total Biaya Service</p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{subTotal|number}}</p>
+        </div>
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">PPN</p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{ppn|number}}</p>
+        </div>
+        <div class="form-group row">
+            <p for="inputEmail3" class="col-sm-3 form-control-label">Total Biaya Service</p>
+            <p for="inputEmail3" class="col-sm-1 form-control-label">Rp.</p>
+            <p for="inputEmail3" class="col-sm-3 form-control-label">{{totalBiayaService|number}}</p>
+        </div>
+    </form>
+
+    <br />
+    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!flagButtonInsert"><i class="ion-archive"></i> {{saveTextButton}}</button>
+    <button type="submit" class="btn btn-primary" (click)="newRequest()"><i class="ion-compose"></i> New</button>
+    <button type="submit" class="btn btn-primary" (click)="print()"><i class="ion-printer"></i> Print</button>
+    <button type="submit" class="btn btn-danger" (click)="showDialog()" [disabled]="!flagButtonReject"><i class="ion-minus-circled"></i> Reject</button>
+    <button type="submit" class="btn btn-primary" (click)="close()" *ngIf="flagButtonClose"><i class="ion-close"></i> Close</button>
+    <button type="submit" class="btn btn-primary" (click)="reOpen()" *ngIf="flagButtonReOpen"><i class="ion-refreshr"></i> ReOpen</button>
+    <a type="submit" class="btn btn-primary" (click)="backToMain()"><i class="ion-reply"></i> Back to main menu</a>
+</div>
+
+
+<p-dialog header="Rejection Comment" [(visible)]="display">
+    <div class="form-group">
+        <textarea placeholder="" pInputTextarea id="textarea01" [(ngModel)]="rejectComent" [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-danger" (click)="reject(rejectComent)"><i class="ion-minus-circled"></i> Confirm Reject</button>
+    <button type="submit" class="btn btn-primary" (click)="cancel()"><i class="ion-compose"></i> Cancel</button>
+</p-dialog>
+
+<servicelist #servicelist (onRowSelected)="onRowSelectedLookupService($event)" (onCancel)="onCancelLookupService($event)"
+    (onHiddenMain)="onHiddenMain($event)"></servicelist>
+<teknisilist #teknisilist (onRowSelected)="onRowSelectedLookupTeknisi($event)" (onCancel)="onCancelLookupTeknisi($event)"
+    (onHiddenMain)="onHiddenMain($event)"></teknisilist>
+<partlist #partlist (onRowSelected)="onRowSelectedLookupPart($event)" (onCancel)="onCancelLookupPart($event)" (onHiddenMain)="onHiddenMain($event)"></partlist>
+<frminputmastercustomer *ngIf="flaghidenInputCustomer" (onCancel)="onCancel($event)" (onSavedCustomer)="onSavedCustomer($event)"
+    [flagUsedforTransaction]="flaghidenInputCustomer"></frminputmastercustomer>
+<customerlist #customerlist (onRowSelected)="onRowSelectedLookupCustomer($event)" (onCancel)="onCancelLookupCustomer($event)"
+    (onHiddenMain)="onHiddenMain($event)"></customerlist>
+<baranglist #baranglist (onRowSelected)="onRowSelectedLookupBarang($event)" (onCancel)="onCancelLookupBarang($event)" (onHiddenMain)="onHiddenMain($event)"></baranglist>
+<fakturlist #fakturlist (onRowSelected)="onRowSelectedFaktur($event)" (onCancel)="onCancelLookupFaktur($event)" (onHiddenMain)="onHiddenMain($event)"></fakturlist>
+
+<div id="print-section" style="display:none;">
+    <p><span style="font-family: Tahoma; color: #000000; font-size: 20pt; font-weight: bold; font-style: 
+
+normal; text-decoration: none;">Invoice Service Request</span></p>
+    <table>
+        <tbody>
+            <tr>
+                <td>&nbsp;No. Service</td>
+                <td>:</td>
+                <td>{{data.kodeService}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 650px;" border="1">
+        <tbody>
+            <tr>
+                <td>
+                    <table style="width: 440px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 120px;">Tanggal</td>
+                                <td style="width: 10px;">:</td>
+                                <td style="width: 100px;">{{data.tanggal}}</td>
+                                <td style="width: 30px;">Jam</td>
+                                <td style="width: 10px;">:</td>
+                                <td style="width: 80px;">{{data.jam}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100px;">Kode/Telp Customer</td>
+                                <td style="width: 10px;">:</td>
+                                <td style="width: 100px;">{{data.kodeCustomer}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td>{{data.namaCustomer}}</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td colspan="4">{{data.alamatCustomer}}</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td>Telp</td>
+                                <td>:</td>
+                                <td>{{data.telpCustomer}}</td>
+                                <td>Hp</td>
+                                <td>:</td>
+                                <td>{{data.hpCustomer}}</td>
+                            </tr>
+                            <tr>
+                                <td>Kota</td>
+                                <td>:</td>
+                                <td>{{data.kotaCustomer}}</td>
+                                <td>Zona</td>
+                                <td>:</td>
+                                <td>{{data.zonaCustomer}}</td>
+                            </tr>
+                            <tr>
+                                <td>Kode Barang</td>
+                                <td>:</td>
+                                <td>{{data.kodeProduk}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Barang</td>
+                                <td>:</td>
+                                <td>{{data.namaProduk}}</td>
+                            </tr>
+                            <tr>
+                                <td>>Merek</td>
+                                <td>:</td>
+                                <td>{{data.merk}}</td>
+                                <td>>Jenis</td>
+                                <td>:</td>
+                                <td>{{data.jenis}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nomor Seri</td>
+                                <td>:</td>
+                                <td>{{data.nomorSeri}}</td>
+                            </tr>
+                            <tr>
+                                <td>>Tanggal Beli</td>
+                                <td>:</td>
+                                <td>{{data.tanggalBeli}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table style="width: 210px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 100px;">Jenis Barang</td>
+                                <td style="width: 10px;">:</td>
+                                <td style="width: 100px;">{{data.jenisService}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status Barang</td>
+                                <td>:</td>
+                                <td>{{data.statusProduk}}</td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Penggaduan</td>
+                                <td>:</td>
+                                <td>{{data.kodePengaduan}}</td>
+                            </tr>
+                            <tr>
+                                <td>Kelengkapan</td>
+                                <td>:</td>
+                                <td>{{data.kelengkapan}}</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Biaya Service</td>
+                                <td>:</td>
+                                <td>Rp. {{data.biaya}}}</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p-confirmDialog width="425 " style="color: black; font-weight: bold; " appendTo="body"></p-confirmDialog>

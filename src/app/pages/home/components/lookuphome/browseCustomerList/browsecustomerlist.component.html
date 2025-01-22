@@ -1,0 +1,40 @@
+<!--<div *ngIf="showPilihKodeBass">-->
+    <div class="input-group">
+        <input type="text" class="form-control with-danger-addon" [(ngModel)]="sKodeCust" (blur)="onBlurMethod()" placeholder="Kode Customer">
+        <span class="input-group-btn">
+            <button class="btn btn-danger" type="button" (click)="showDialog()">...</button>
+        </span>
+    </div>
+<!--</div>-->
+
+<p-dialog header="List Customer" [(visible)]="display" responsive="true" appendTo="body" [style]="{'font-size':'12px','padding':'0px'}">
+    <div style="width:1000px;">
+        
+        <div [ngBusy]="busyloadevent"></div>
+
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search Kode Customer / Nomor HP">
+        </div>
+        
+        <div *ngIf="showPilihListZona">
+            <div class="dropdownbtn">
+                <select class="form-control" [(ngModel)]="selectedListZona" (ngModelChange)="onZonaChange($event)">
+                    <option *ngFor="let lz of listZona" [value]="lz.value">  
+                    {{lz.label}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <p-dataTable [value]="listCust" [rows]="7" [paginator]="true" [responsive]="true" selectionMode="single" [(selection)]="selectedCust" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>
+            <p-column field="KODE_CUSTOMER" header="Kode Customer" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_CUSTOMER" header="Nama Customer" [style]="{'color':'black'}"></p-column>
+            <p-column field="ALAMAT_CUSTOMER" header="Alamat Customer" [style]="{'color':'black'}"></p-column>
+            <p-column field="KOTA_CUSTOMER" header="Kota Customer" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_ZONA" header="Zona" [style]="{'color':'black'}"></p-column>
+            <p-column field="HP_CUSTOMER" header="Hp Customer" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_CUSTOMER" header="Nama Customer" [style]="{'color':'black'}"></p-column>
+        </p-dataTable>
+    </div>
+</p-dialog>

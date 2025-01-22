@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Report Part Order">
+            <div class="row show-grid">
+                <div class="col-md-3">
+                    <div class="dropdownbtn">
+                        <select class="form-control" [(ngModel)]="selectedListZona">
+                            <option *ngFor="let lz of listZona" [value]="lz.value">  
+                            {{lz.label}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir,selectedListZona)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <table class="mytable">
+                <tr>
+                    <td class="nourut">No</td>
+                    <td>No PO</td>
+                    <td>Tanggal</td>
+                    <td>Nama Bass</td>
+                    <td>Catatan</td>
+                    <td>PartID</td>
+                    <td>Qty</td>
+                    <td>No. Service Request</td>
+                </tr>
+                <tr *ngFor="let reportPartOrder of reportPartOrders; let a=index">
+                    <td>{{a + 1}}</td>
+                    <td>{{reportPartOrder.NO_PO}}</td>
+                    <td>{{reportPartOrder.TANGGAL | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{reportPartOrder.NAMA_BASS}}</td>
+                    <td>{{reportPartOrder.CATATAN}}</td>
+                    <td>{{reportPartOrder.PARTID}}</td>
+                    <td>{{reportPartOrder.QTY}}</td>
+                    <td>{{reportPartOrder.NO_CLAIM}}</td>
+                </tr>
+            </table>
+            
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>

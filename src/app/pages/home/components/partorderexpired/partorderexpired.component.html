@@ -1,0 +1,39 @@
+<ba-card title="Part Order Expired">
+    <browselistbass (kodeBassChild)='kodeBassEvent($event)'></browselistbass>
+
+    <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+    <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+
+    <button type="submit" class="btn btn-primary" (click)="loadData()">Proses</button>
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Result" baCardClass="with-scroll table-panel">
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search">
+        </div>
+
+        <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+            <p-column field="NO_PO" header="No PO" [style]="{'color':'black'}"></p-column>
+            <p-column field="TANGGAL" header="Tanggal" [style]="{'color':'black'}">
+                <template let-col let-data="rowData" pTemplate="body">
+                    <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                </template>
+            </p-column>
+            <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
+            <p-column field="CATATAN" header="Catatan" [style]="{'color':'black'}"></p-column>
+            <p-column field="STATUS" header="Status" [style]="{'color':'black'}"></p-column>
+            <p-column field="NAMA_ZONA" header="Nama Zona" [style]="{'color':'black'}"></p-column>
+            <p-column styleClass="col-button">
+                <template pTemplate="header">
+                    <button type="button" pButton icon="fa-refresh"></button>
+                </template>
+                <template let-data="rowData" pTemplate="body">
+                    <button (click)="tampil(data.NO_PO)" class="status-button btn btn-xs btn-primary">View</button>
+                </template>
+            </p-column>
+        </p-dataTable>
+</ba-card>

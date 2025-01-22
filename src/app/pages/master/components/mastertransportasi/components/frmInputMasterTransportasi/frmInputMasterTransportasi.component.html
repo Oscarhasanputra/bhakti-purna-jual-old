@@ -1,0 +1,28 @@
+<ba-card title="Tambah Transportasi">
+    <div *ngIf="validationSukses" class="alert alert-success" role="alert">
+        {{validationSukses}}
+        <button (click)="cancel()" class="btn btn-info">{{navigasi}}</button>
+    </div>
+    <div>
+        <form [formGroup]="registerTransportasi">
+            <div class="form-group row">
+                Kode Transportasi : {{sKodeTransportasi}}
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!jarak.valid && jarak.touched), 'has-success': (jarak.valid && jarak.touched)}">
+                Jarak : <input type="text" class="form-control" placeholder="Jarak" [formControl]="jarak" pattern="[a-zA-Z-0-9. ]+">
+                <div *ngIf="(!jarak.valid && jarak.touched)" class="validateError">Hanya boleh angka</div>
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!biaya.valid && biaya.touched), 'has-success': (biaya.valid && biaya.touched)}">
+                Biaya : <input type="text" class="form-control" placeholder="Biaya" [formControl]="biaya" pattern="[a-zA-Z-0-9. ]+">
+                <div *ngIf="(!biaya.valid && biaya.touched)" class="validateError">Hanya boleh angka</div>
+            </div>
+        </form>
+
+        <div class="row show-grid">
+            <button [disabled]="!registerTransportasi.valid" type="submit" class="btn btn-primary" (click)="save(registerTransportasi.value)">Save</button>
+            <button class="btn btn-primary" (click)="cancel()">Kembali ke Halaman Sebelumnya</button>
+        </div>
+
+    </div>
+
+</ba-card>

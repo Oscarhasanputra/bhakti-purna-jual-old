@@ -1,0 +1,45 @@
+<!-- <div class="row pie-charts">
+
+    <a routerLink="servicelist">
+        <ba-card class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
+        Service List
+        </ba-card>
+    </a>
+  
+    <a routerLink="partorder">
+        <ba-card class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
+        Part Order
+        </ba-card>
+    </a>
+
+    <a routerLink="partorderexpired">
+        <ba-card class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            Part Order Expired
+        </ba-card>
+    </a>
+
+    <a routerLink="barangdalamperjalanan">
+        <ba-card class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            Barang Dalam Perjalanan
+        </ba-card>
+    </a>
+</div>
+
+<div class="border not-padded">
+    <router-outlet></router-outlet>
+</div> -->
+
+<p-tabView id="test" *ngIf="AksesExploded">
+    <p-tabPanel header="Service List">
+        <servicelist></servicelist>
+    </p-tabPanel>
+    <p-tabPanel header="Part Order">
+        <partorder></partorder>
+    </p-tabPanel>
+    <p-tabPanel header="Part Order Expired">
+        <partorderexpired></partorderexpired>
+    </p-tabPanel>
+    <p-tabPanel header="Barang Dalam Perjalanan">
+        <barangdalamperjalanan></barangdalamperjalanan>
+    </p-tabPanel>
+</p-tabView>

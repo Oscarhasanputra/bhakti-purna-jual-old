@@ -1,0 +1,71 @@
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll">
+            <div class="row">
+                <div class="button-wrapper">
+                    <button type="button" [hidden] = "btnInsertFlag" id="add-button" class="btn btn-primary btn-raised" (click)="view('')">Tambah zona</button>
+                </div>
+            </div>
+            <div class="row">
+                <p-dataTable [value]="zonalist" [responsive]="true" [stacked]="stacked" sortMode="multiple" [rows]="10"
+                    [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [style]="{'color': 'black'}">
+                    <p-column field="NAMA_ZONA" header="Nama Zona" [sortable]="true" [filter]="true" filterPlaceholder="Nama Zona" filterMatchMode="contains"></p-column>
+                    <p-column styleClass="col-button" [hidden]="btnEditFlag" [style]="{'width':'50px'}">
+                        <template let-zona="rowData" pTemplate="body">
+                            <button type="button" class="btn btn-primary" pButton (click)="view(zona)" icon="fa-eye"></button>
+                        </template>
+                    </p-column>
+                    <p-column styleClass="col-button" [hidden]="btnDeleteFlag" [style]="{'width':'50px'}">
+                        <template let-zona="rowData" pTemplate="body">
+                            <button type="button" class="btn btn-danger" pButton (click)="delete(zona)" icon="fa-times"></button>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </ba-card>
+    </div>
+</div>
+
+
+<p-dialog header="MASTER ZONA" [(visible)]="display" modal="true" height="500" width="600" responsive="true" appendTo="body">
+    <form #zonaForm="ngForm" *ngIf="active" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label" style="color: black">Kode Zona :</label>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    {{dataHeader.ZONA}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label" style="color: black">Nama Zona :</label>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <input type="text" id="name" required minlength="4" maxlength="24" name="namazona" [(ngModel)]="dataHeader.NAMA_ZONA" #namazona="ngModel" >
+                    <!--<input type="text" name="namazona" #namazona="ngModel" [(ngModel)]="dataHeader.NAMA_ZONA" [ngModelOptions]="{standalone: true}" required>-->
+                    <div *ngIf="namazona.errors && (namazona.dirty || namazona.touched)" class="alert alert-danger">
+                        <div [hidden]="!namazona.errors.required">
+                            Nama zona harus di isi!
+                        </div>
+                        <div [hidden]="!namazona.errors.minlength">
+                            Nama zona harus minimal 4 karakter!
+                        </div>
+                        <div [hidden]="!namazona.errors.maxlength">
+                            Nama zona tidak boleh lebih dari 24 karakter!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span *ngIf="newOrEditFlag==true">
+            <button type="button" [disabled]="!zonaForm.form.valid" class="btn btn-primary" (click)="save(zonaForm)">Save</button>
+        </span>
+        <span *ngIf="newOrEditFlag==false">
+            <button type="button" [disabled]="!zonaForm.form.valid" class="btn btn-primary" (click)="update(zonaForm)">Update</button>
+        </span>
+         &nbsp; &nbsp; &nbsp;
+        <button type="button" class="btn btn-primary" (click)="Back(zonaForm)">Cancel</button>
+    </form>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" appendTo="body"></p-confirmDialog>

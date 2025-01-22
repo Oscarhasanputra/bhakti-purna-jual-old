@@ -1,0 +1,38 @@
+<ba-card title="Maintain Mapping Cabang Zona">
+    <div *ngIf="showPilihKodeCabang">
+        <browselistcabangmaster (kodeCabangChild)='kodeCabangEvent($event)'></browselistcabangmaster>
+    </div>
+
+    <div hidden>
+        Nama : <input type="text" class="form-control" [(ngModel)]="kata_kunci">
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="loadData()">Search</button>
+    <button [disabled]="!HakAkses.HAK_INSERT" class="btn btn-primary" (click)="tambahMappingCabang()">Tambah Mapping Cabang</button>
+
+</ba-card>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<ba-card title="Mapping Cabang Zona List" baCardClass="with-scroll table-panel">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="CABANG" header="Cabang" [style]="{'color':'black'}"></p-column>
+        <p-column field="NamaCabang" header="Nama Cabang" [style]="{'color':'black'}"></p-column>
+        <p-column field="ZONA" header="Zona" [style]="{'color':'black'}"></p-column>
+        <p-column field="NamaZona" header="Nama Zona" [style]="{'color':'black'}"></p-column>
+        <p-column styleClass="col-button" [hidden]="!HakAkses.HAK_DELETE">
+            <template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-data="rowData" pTemplate="body">
+                <button (click)="delete(data.CABANG,data.ZONA)" pButton icon="fa-times" label="Delete"></button>
+            </template>
+        </p-column>
+    </p-dataTable>
+</ba-card>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>

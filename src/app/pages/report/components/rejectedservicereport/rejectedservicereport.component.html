@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-card title="Rejected Service Report">
+        <div class="row show-grid">
+          <div class="col-md-3">
+            <browselistbassreport (showPilihKodeBassChild)='handleEvent($event)' (kodeBassChild)='kodeBassEvent($event)'></browselistbassreport>
+          </div>
+        </div>
+
+            <p-calendar [(ngModel)]="tglAwal" placeholder="Tanggal Awal" dateFormat="dd-mm-yy" appendTo="body"></p-calendar> - 
+            <p-calendar [(ngModel)]="tglAkhir" placeholder="Tanggal Akhir" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+            <button type="submit" class="btn btn-primary" (click)="proses(tglAwal,tglAkhir)">Search</button>
+            <button class="btn btn-default btn-with-icon" (click)="print()"><i class="fa fa-print"></i>Print</button>
+        </ba-card>
+    </div>
+</div>
+
+<div [ngBusy]="busyloadevent"></div>
+
+<div id="print-section">
+    <div class="row">
+        <div class="col-md-12">
+            <ba-card title="Result" baCardClass="with-scroll table-panel">
+            <!-- Hasil -->
+            <table class="mytable">
+                <tr>
+                    <td class="nourut">No</td>
+                    <td>Kode Bass</td>
+                    <td>Kode Service</td>
+                    <td>Nomor Nota</td>
+                    <td>Tanggal</td>
+                    <td>Merk</td>
+                    <td>Kode Produk</td>
+                    <td>Nomor Seri</td>
+                    <td>Jenis Barang</td>
+                    <td>Status</td>
+                    <td>Pengaduan</td>
+                    <td>Perbaikan</td>
+                    <td>Biaya</td>
+                    <td>Biaya Transport</td>
+                    <td>Alasan Penolakan</td>
+                </tr>
+                <tr *ngFor="let rejectedServiceReportService of rejectedServiceReportServices; let a=index">
+                    <td>{{a + 1}}</td>
+                    <td>{{rejectedServiceReportService.KODE_BASS}}</td>
+                    <td>{{rejectedServiceReportService.KODE_SERVICE}}</td>
+                    <td>{{rejectedServiceReportService.NOMOR_NOTA}}</td>
+                    <td>{{rejectedServiceReportService.TANGGAL | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{rejectedServiceReportService.MERK}}</td>
+                    <td>{{rejectedServiceReportService.KODE_PRODUK}}</td>
+                    <td>{{rejectedServiceReportService.NOMOR_SERI}}</td>
+                    <td>{{rejectedServiceReportService.JNS_BRG}}</td>
+                    <td>{{rejectedServiceReportService.STATUS}}</td>
+                    <td>{{rejectedServiceReportService.KODE_PENGADUAN}}</td>
+                    <td>{{rejectedServiceReportService.NAMA_PERBAIKAN}}</td>
+                    <td>{{rejectedServiceReportService.BIAYA}}</td>
+                    <td>{{rejectedServiceReportService.BIAYA_TRANSPORT}}</td>
+                    <td>{{rejectedServiceReportService.REJECTION_COMMENT}}</td>
+                </tr>
+            </table>
+
+            <!-- End Hasil -->
+            </ba-card>
+        </div>
+    </div>
+</div>
