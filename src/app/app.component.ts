@@ -41,7 +41,6 @@ export class App {
   }
 
   public ngAfterViewInit(): void {
-    console.log("hello ini testing ")
     // hide spinner once all loaders are completed
     BaThemePreloader.load().then((values) => {
       this._spinner.hide();
