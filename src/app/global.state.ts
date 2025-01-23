@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
 @Injectable()
 export class GlobalState {
   // public GlobalUrl: String = 'http://103.253.107.56:5000';
-  public GlobalUrl: String = 'http://localhost:5000';
+  public GlobalUrl: String = 'http://10.1.0.181:5000';
 
   private _data = new Subject<Object>();
   private _dataStream$ = this._data.asObservable();
